@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "target": "ES2017",
         "forceConsistentCasingInFileNames": true,
         "lib": ["dom", "dom.iterable", "esnext"],
@@ -21,7 +23,8 @@
         ],
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["src/*"],
+            "@lib/*": ["src/lib/*"]
         }
     },
     "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
