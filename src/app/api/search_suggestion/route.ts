@@ -1,5 +1,5 @@
 import { registerDependencies } from '@/lib/di';
-import { PreviouslySearchedService } from '@/lib/services/previouslySearchedService';
+import { SearchSuggestionService } from '@/lib/services/searchSuggestionService';
 import type { ApiResponse } from '@/types/api';
 import { NextResponse } from 'next/server';
 import { container } from 'tsyringe';
@@ -8,13 +8,12 @@ registerDependencies();
 
 export async function GET(req: Request): Promise<NextResponse<ApiResponse<unknown>>> {
     const { searchParams } = new URL(req.url);
-    const email = searchParams.get('email');
-    const phoneNumber = searchParams.get('phone_number');
+    const query = searchParams.get('query');
 
-    const searchService = container.resolve(PreviouslySearchedService);
+    const searchService = container.resolve(SearchSuggestionService);
 
     try {
-        const response = await searchService.fetch({ email, phoneNumber });
+        const response = await searchService.fetch((query ?? '').trim());
         return NextResponse.json(response);
     } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown error';

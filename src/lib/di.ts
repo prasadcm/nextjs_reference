@@ -1,8 +1,12 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
-import { SearchService } from './services/searchService';
+import { PreviouslySearchedService } from './services/previouslySearchedService';
+import { SearchRecommendationService } from './services/searchRecommendationService';
+import { SearchSuggestionService } from './services/searchSuggestionService';
 
 // Register all services
 export function registerDependencies(): void {
-    container.registerSingleton(SearchService);
+    container.registerSingleton('SearchRecommendationService', PreviouslySearchedService);
+    container.registerSingleton('SearchRecommendationService', SearchRecommendationService);
+    container.registerSingleton('SearchSuggestionService', SearchSuggestionService);
 }
